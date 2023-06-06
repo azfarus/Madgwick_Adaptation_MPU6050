@@ -96,7 +96,6 @@ public:
 	// MPU CONFIG SETTER
 	byte setGyroConfig(int config_num);
 	byte setAccConfig(int config_num);
-	void setBeta( float b ){ this->beta = b; }
 
 	void setGyroOffsets(float x, float y, float z);
 	void setAccOffsets(float x, float y, float z);

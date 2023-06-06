@@ -13,7 +13,7 @@ void setup() {
  
   Wire.begin();
   mpu.upsideDownMounting = true;
-  mpu.setBeta(4);
+  mpu.setBeta(2.25);
   
   byte status = mpu.begin();
   Serial.print(F("MPU6050 status: "));
@@ -34,6 +34,7 @@ void loop() {
 
   mpu.MadgwickUpdate((float)(micros() - timer));
   timer = micros();
+  
   Quaternion axis(0,0,0,1);
   axis = Quaternion::multiply(mpu.getQuaternion(), axis);       
   axis = Quaternion::multiply(axis,mpu.getQuaternion().getInverse()); // execute the p = qpq^-1 quaternion multiplication  
@@ -41,6 +42,7 @@ void loop() {
 
   float rad_deg = (180.0/3.1415);
   Serial.printf("%f %f %f \n" , acos(axis.x/recip)*rad_deg , acos(axis.y/recip)*rad_deg , acos(axis.z/recip)*rad_deg);
+  delayMicroseconds(2000);
   //Serial.printf("%f %f %f \n" , mpu.getAccX() , mpu.getAccY() , mpu.getAccZ());
   
   
